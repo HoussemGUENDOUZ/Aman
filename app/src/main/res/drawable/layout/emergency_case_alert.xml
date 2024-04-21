@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Nous détectons un cas d'urgence"
+    android:textColor="@color/black"
+    android:textSize="28dp"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:layout_marginTop="40dp"
+    android:id="@+id/tv1_alert"
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="faut-il contacter la protection civile"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/tv1_alert"
+        android:layout_marginTop="20dp"
+        />
+</RelativeLayout>

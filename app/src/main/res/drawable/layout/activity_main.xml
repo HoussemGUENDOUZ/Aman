@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/whiteBk"
+        >
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="134dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/car_recoverey"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Bienvenue à AMAN"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:textStyle="bold"
+            android:textSize="32dp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/grisBold"
+            android:text="La première application pour l'assistance routière et d'urgence. "
+            android:gravity="center"
+            android:textStyle="normal"
+            android:textSize="18dp"
+
+            />
+        <!-- custom_button.xml -->
+        <Button
+            android:id="@+id/seConnecter"
+            android:layout_width="230dp"
+            android:layout_height="60dp"
+            android:text="Se connecter"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="@drawable/login_button"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:onClick="goToLogin" />
+
+        <Button
+            android:id="@+id/inscrire"
+            android:layout_width="230dp"
+            android:layout_height="60dp"
+            android:text="S'inscrire"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="@drawable/login_button"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+
+            android:onClick="goToSignUp"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            >
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                android:gravity="center"
+                android:layout_marginTop="3dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ou connectez-vous avec"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="1dp"
+                android:background="@color/black"
+android:gravity="center"
+                android:layout_marginTop="3dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            >
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/google_icon"/>
+            <ImageView
+               android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/facebook_icon"
+                android:layout_marginLeft="50dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,44 @@
+[versions]
+agp = "8.3.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.11.0"
+activity = "1.8.0"
+constraintlayout = "2.1.4"
+androidsvg = "1.4"
+kxml2 = "2.3.0"
+mapsforgeThemes = "0.21.0"
+mapsforgeMapReader = "0.21.0"
+mapsforgeMapAndroid = "0.21.0"
+mapsforgeMap = "0.21.0"
+mapsforgeCore = "0.21.0"
+legacySupportV4 = "1.0.0"
+constraintlayoutVersion = "2.2.0-alpha13"
+materialVersion = "1.13.0-alpha01"
+appcompatVersion = "1.7.0-alpha03"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidsvg = { group = "com.caverock", name = "androidsvg", version.ref = "androidsvg" }
+kxml2 = { group = "net.sf.kxml", name = "kxml2", version.ref = "kxml2" }
+mapsforge-themes = { group = "org.mapsforge", name = "mapsforge-themes", version.ref = "mapsforgeThemes" }
+mapsforge-map-reader = { group = "org.mapsforge", name = "mapsforge-map-reader", version.ref = "mapsforgeMapReader" }
+mapsforge-map-android = { group = "org.mapsforge", name = "mapsforge-map-android", version.ref = "mapsforgeMapAndroid" }
+mapsforge-map = { group = "org.mapsforge", name = "mapsforge-map", version.ref = "mapsforgeMap" }
+mapsforge-core = { group = "org.mapsforge", name = "mapsforge-core", version.ref = "mapsforgeCore" }
+legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+

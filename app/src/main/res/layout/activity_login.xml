@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bonjour a nouveau, tu nous as manque"
+        android:text="Bonjour à nouveau, vous nous avez manqué"
         android:layout_marginLeft="40dp"
         android:textColor="@color/grisBold"
         android:layout_marginTop="20dp"
@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Remember me"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/grisBold"
             />
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="mot de passe oublie ?"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textColor="@color/bleu"
             android:layout_gravity="right|center"
             android:layout_weight="1"

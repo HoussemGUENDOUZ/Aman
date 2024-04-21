@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Creer un compte"
+            android:text="Créer un compte"
             android:textStyle="bold"
             android:textSize="24dp"
             android:textColor="@color/black"
@@ -27,20 +27,9 @@
             />
     </LinearLayout>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Connecter vous avec nous et creez votre compte."
-        android:layout_marginLeft="22dp"
-        android:textColor="@color/grisBold"
-        android:layout_marginTop="10dp"
-        android:textStyle="normal"
-        android:textSize="18dp"
-        android:gravity="center"
-        />
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Adresse e-mail"
+        android:text="Email"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
@@ -58,7 +47,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Numero telephone"
+        android:text="Numéro téléphone"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
@@ -159,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ou inscrivez- vous avec"
+            android:text="ou inscrivez-vous avec"
             android:textSize="18dp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -175,19 +164,20 @@
             />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/history"
-            />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/google_icon"/>
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/history"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/facebook_icon"
+            android:layout_marginLeft="50dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -198,7 +188,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vous avez deja un compte ? "
+            android:text="Vous avez déjà un compte ? "
             android:textSize="16dp"
             android:textColor="@color/grisBold"
             android:layout_marginLeft="10dp"

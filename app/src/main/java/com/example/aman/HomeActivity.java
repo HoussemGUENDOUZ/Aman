@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         imgAnimation1 = findViewById(R.id.imgAnimation1);
         imgAnimation2 = findViewById(R.id.imgAnimation2);
-        button = findViewById(R.id.button);
+        //button = findViewById(R.id.button);
         startPulse();
         ImageView imageView = findViewById(R.id.iv1);
         imageView.setOnClickListener(new View.OnClickListener() {

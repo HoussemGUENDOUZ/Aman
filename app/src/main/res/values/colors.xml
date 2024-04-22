@@ -11,5 +11,6 @@
     <color name="grisBold">#888383</color>
     <color name="gris">#E4E3E2</color>
     <color name="bleu">#1766FF</color>
+    <color name="bleu2">#991766FF</color>
     <color name="redE">#FF1111</color>
 </resources>

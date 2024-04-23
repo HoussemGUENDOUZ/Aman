@@ -63,7 +63,8 @@
             android:layout_marginLeft="20dp"
             android:text="Services disponibles"
             android:textSize="24dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
         <ImageView
             android:id="@+id/iv1"
             android:layout_width="match_parent"

@@ -25,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
         emailET = findViewById(R.id.email);
         passwordET = findViewById(R.id.password);
         confirm_passwordET = findViewById(R.id.confirm_password);
+        //show and hide password
         passwordET.setOnTouchListener((v, event) -> {
             final int right = 2;
             if (event.getAction()== MotionEvent.ACTION_UP){
@@ -40,6 +41,27 @@ public class SignUpActivity extends AppCompatActivity {
                         passwordVisible = true;
                     }
                     passwordET.setSelection(selection);
+                    return true;
+                }
+            }
+            return false;
+        });
+        //show and hide confirm password
+        confirm_passwordET.setOnTouchListener((v, event) -> {
+            final int right = 2;
+            if (event.getAction()== MotionEvent.ACTION_UP){
+                if (event.getRawX()>=confirm_passwordET.getRight()-confirm_passwordET.getCompoundDrawables()[right].getBounds().width()){
+                    int selection = confirm_passwordET.getSelectionEnd();
+                    if (confirmpasswordVisible){
+                        confirm_passwordET.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.baseline_visibility_off_24,0);
+                        confirm_passwordET.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        confirmpasswordVisible = false;
+                    }else {
+                        confirm_passwordET.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.baseline_visibility_24,0);
+                        confirm_passwordET.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        confirmpasswordVisible = true;
+                    }
+                    confirm_passwordET.setSelection(selection);
                     return true;
                 }
             }

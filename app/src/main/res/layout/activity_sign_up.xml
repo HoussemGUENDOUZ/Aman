@@ -40,8 +40,8 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="10dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/edit_txt"
         />
@@ -59,8 +59,8 @@
         android:id="@+id/phonenumber"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="10dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/edit_txt"
         />

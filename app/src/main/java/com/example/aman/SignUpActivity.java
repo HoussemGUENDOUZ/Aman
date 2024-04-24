@@ -33,7 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
     Button signup_btn;
     boolean passwordVisible,confirmpasswordVisible;
     private FirebaseAuth mAuth;
-
     @Override
     public void onStart() {
         super.onStart();
@@ -45,8 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
             //finish();
         }
     }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,8 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
             return false;
         });
-
-
+        //signup button onclick listener
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +106,6 @@ public class SignUpActivity extends AppCompatActivity {
                 String phone_number = phone_numberET.getText().toString();
                 String password = passwordET.getText().toString();
                 String confirm_password = confirm_passwordET.getText().toString();
-
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -118,30 +113,20 @@ public class SignUpActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(SignUpActivity.this, "Authentication succeeded.",
                                             Toast.LENGTH_SHORT).show();
-
-
                                     Map<String,Object> map =new HashMap<>();
                                     map.put("phone_number",phone_number);
                                     map.put("email",email);
                                     FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
-
                                     startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                 } else {
                                     // If sign in fails, display a message to the user.
-
                                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                         });
-
-                Map<String,Object> map =new HashMap<>();
-                map.put("phone_number",phone_number);
-                FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
             }
         });
-
 
     }
 

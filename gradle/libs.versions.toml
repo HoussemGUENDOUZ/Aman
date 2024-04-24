@@ -18,6 +18,11 @@ legacySupportV4 = "1.0.0"
 constraintlayoutVersion = "2.2.0-alpha13"
 materialVersion = "1.13.0-alpha01"
 appcompatVersion = "1.7.0-alpha03"
+playServicesAuth = "21.1.0"
+googleServices = "4.4.1"
+firebaseDatabase = "20.3.1"
+firebaseUiDatabase = "8.0.2"
+recyclerview = "1.4.0-alpha01"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -38,6 +43,11 @@ legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", ver
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+firebase-ui-database = { group = "com.firebaseui", name = "firebase-ui-database", version.ref = "firebaseUiDatabase" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

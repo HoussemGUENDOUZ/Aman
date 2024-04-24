@@ -114,7 +114,6 @@
         android:textStyle="bold"
         android:textSize="24dp"
         android:layout_margin="20dp"
-        android:onClick="connect"
         />
     <LinearLayout
         android:layout_width="match_parent"

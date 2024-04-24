@@ -1,7 +1,10 @@
 package com.example.aman;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
@@ -55,7 +58,12 @@ public class SignUpActivity extends AppCompatActivity {
         confirm_passwordET = findViewById(R.id.confirm_password);
         phone_numberET= findViewById(R.id.phonenumber);
         signup_btn = findViewById(R.id.signup_btn);
-
+        signup_btn.setEnabled(false);
+        //disable and enable login button
+        emailET.addTextChangedListener(signuptextwatcher);
+        passwordET.addTextChangedListener(signuptextwatcher);
+        phone_numberET.addTextChangedListener(signuptextwatcher);
+        confirm_passwordET.addTextChangedListener(signuptextwatcher);
         //show and hide password
         passwordET.setOnTouchListener((v, event) -> {
             final int right = 2;
@@ -130,4 +138,32 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+
+    TextWatcher signuptextwatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String email = emailET.getText().toString().trim();
+            String password = passwordET.getText().toString().trim();
+            String phone_number =phone_numberET.getText().toString().trim();
+            String confirm_password = confirm_passwordET.getText().toString().trim();
+            signup_btn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && phone_number.length()==10 && password.equals(confirm_password));
+            if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && password.equals(confirm_password) && phone_number.length()==10){
+                //fields are not empty
+                signup_btn.setTextColor(Color.parseColor("#ffffff"));
+                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu));
+            }else {
+                //both fields or one of them is empty
+                signup_btn.setTextColor(Color.parseColor("#99ffffff"));
+                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu2));
+            }
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 }

@@ -58,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirm_passwordET = findViewById(R.id.confirm_password);
         phone_numberET= findViewById(R.id.phonenumber);
         signup_btn = findViewById(R.id.signup_btn);
+        //initialize disabled button
         signup_btn.setEnabled(false);
         //disable and enable login button
         emailET.addTextChangedListener(signuptextwatcher);

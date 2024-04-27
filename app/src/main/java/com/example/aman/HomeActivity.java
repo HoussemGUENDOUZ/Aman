@@ -63,10 +63,13 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ServicesAvailable servicesAvailable = (ServicesAvailable) parent.getItemAtPosition(position);
+                String serviceType = servicesAvailable.getService_type();
+
                 Intent intent = new Intent(HomeActivity.this, MecServiceProviderActivity.class);
+                intent.putExtra("serviceType", serviceType);
 
                 // to send item id
-              //  intent.putExtra("key", servicesAvailable.getData());
+                //intent.putExtra("key", servicesAvailable.getData());
                 startActivity(intent);
 //                switch (position){
 //                    case 0:

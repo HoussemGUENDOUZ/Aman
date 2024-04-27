@@ -18,6 +18,7 @@ public class ServiceAvailableAdapter extends ArrayAdapter<ServicesAvailable> {
     private Context context;
 
     List<ServicesAvailable> items;
+
     public ServiceAvailableAdapter(@NonNull Context context, int resource, List<ServicesAvailable> items) {
         super(context, resource, items);
         this.resourceLayout = resource;
@@ -25,8 +26,8 @@ public class ServiceAvailableAdapter extends ArrayAdapter<ServicesAvailable> {
         this.items = items;
     }
 
-    public View getView(int position, View convertView , ViewGroup parent ){
-        View layout =convertView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View layout = convertView;
 
         if (layout == null) {
             LayoutInflater inflater;
@@ -38,9 +39,9 @@ public class ServiceAvailableAdapter extends ArrayAdapter<ServicesAvailable> {
 
         ImageView imageView = layout.findViewById(R.id.service_type_imgIV);
         TextView textView = layout.findViewById(R.id.service_type_textTV);
-imageView.setImageResource(items.get(position).service_img);
-textView.setText(items.get(position).service_type);
-return layout;
+        imageView.setImageResource(items.get(position).service_img);
+        textView.setText(items.get(position).service_type);
+        return layout;
 
 
     }

@@ -39,6 +39,7 @@
             android:backgroundTint="@color/gris"
             android:layout_marginRight="10dp"
             android:layout_weight="2"
+
             />
         <ImageView
             android:layout_width="50dp"
@@ -54,18 +55,29 @@
         android:layout_height="wrap_content"
         android:text="edited"
         android:id="@+id/edited"
-        android:layout_above="@+id/listServiceProviders"
+        android:layout_above="@+id/mec_img"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="20dp"
+
         />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_bar_filter"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/gris"
-        android:layout_marginTop="20dp"
-        android:id="@+id/listServiceProviders"
-        />
+ <ScrollView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/search_bar_filter"
+     android:id="@+id/listServiceProvidersSV"
+     >
+     <ListView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/search_bar_filter"
+         android:layout_marginRight="20dp"
+         android:layout_marginLeft="20dp"
+
+         android:layout_marginTop="20dp"
+         android:id="@+id/listServiceProviders"
+         />
+ </ScrollView>
     <fragment
         android:name="com.example.aman.NavBarFragment"
         android:layout_width="match_parent"

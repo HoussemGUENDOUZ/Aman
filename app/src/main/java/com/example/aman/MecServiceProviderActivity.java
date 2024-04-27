@@ -45,18 +45,26 @@ public class MecServiceProviderActivity extends AppCompatActivity {
         ServiceProviderAdapter adapter = new ServiceProviderAdapter(MecServiceProviderActivity.this, R.layout.item_service_provider,items);
         listView.setAdapter(adapter);
         database.addChildEventListener(new ChildEventListener() {
+            private int serviceProviderCO;
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                ServiceProvider serviceProvider = snapshot.getValue(ServiceProvider.class);
+                if (serviceProviderCO < 3) {
+                    ServiceProvider serviceProvider = snapshot.getValue(ServiceProvider.class);
 
 
-                if (serviceProvider.getType().equals(data)) {
+                    if (serviceProvider.getType().equals(data)) {
 
-                    items.add(serviceProvider);
-                    adapter.notifyDataSetChanged();
+                        items.add(serviceProvider);
+                        adapter.notifyDataSetChanged();
+                        serviceProviderCO++;
+
+                    }
+                    // display just 3 service providers;
+                    if (serviceProviderCO == 3){
+                        database.removeEventListener(this);
+                    }
                 }
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                // for (DataSnapshot dataSnapshot : snapshot.getChildren()) {

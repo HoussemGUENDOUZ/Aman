@@ -26,6 +26,7 @@ import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -36,11 +37,12 @@ public class SignUpActivity extends AppCompatActivity {
     Button signup_btn;
     boolean passwordVisible,confirmpasswordVisible;
     private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
@@ -125,6 +127,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     Map<String,Object> map =new HashMap<>();
                                     map.put("phone_number",phone_number);
                                     map.put("email",email);
+                                    map.put("role","client");
+                                    //map.put("user_id",currentUser.getUid());
                                     FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
                                     startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                 } else {
@@ -136,6 +140,24 @@ public class SignUpActivity extends AppCompatActivity {
                         });
             }
         });
+
+
+
+
+
+        // add user
+
+
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference usersRef = database.getReference("users");
+//
+//        User user = new User();
+//        user.setEmail(user.email);
+//        user.setPhoneNumber(user.phoneNumber);
+//        user.setRole("serviceProvider");
+//
+//        String userId = usersRef.push().getKey();
+//        usersRef.child(userId).setValue(user);
 
     }
 

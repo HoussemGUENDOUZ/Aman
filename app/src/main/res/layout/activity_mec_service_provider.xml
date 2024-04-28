@@ -62,14 +62,15 @@
 
         />
  <ScrollView
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:layout_height="600dp"
      android:layout_below="@+id/search_bar_filter"
      android:id="@+id/listServiceProvidersSV"
+android:layout_above="@+id/navBarMecFragment"
      >
      <ListView
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+         android:layout_height="match_parent"
          android:layout_below="@+id/search_bar_filter"
          android:layout_marginRight="20dp"
          android:layout_marginLeft="20dp"
@@ -78,6 +79,7 @@
          android:id="@+id/listServiceProviders"
          />
  </ScrollView>
+
     <fragment
         android:name="com.example.aman.NavBarFragment"
         android:layout_width="match_parent"

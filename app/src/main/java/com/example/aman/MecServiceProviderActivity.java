@@ -3,6 +3,7 @@ package com.example.aman;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,10 +36,12 @@ public class MecServiceProviderActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance().getReference("serviceProviders");
 
-        // send sp type
+        // get sp type
         String data = getIntent().getStringExtra("serviceType");
         TextView tv = (TextView) findViewById(R.id.edited);
         tv.setText(data);
+
+
 
         ListView listView = findViewById(R.id.listServiceProviders);
         List<ServiceProvider> items = new ArrayList<>();

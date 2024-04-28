@@ -22,17 +22,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     EditText passwordET, emailET;
     Button loginbtn;
     boolean passwordVisible;
     private FirebaseAuth mAuth;
+    private DatabaseReference database;
+    FirebaseUser currentUser;
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
@@ -54,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -61,12 +71,64 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    database = FirebaseDatabase.getInstance().getReference().child("users");
+                                    database.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            for (DataSnapshot datasnapshot : snapshot.getChildren()){
+                                                User user = datasnapshot.getValue(User.class);
+                                                if (user.getEmail().equals(email)){
+                                                    if (user.getRole().equals("client")){
+                                                        Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+                                                                Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }else {
+                                                        Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+                                                                Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+//                                    String userId = mAuth.getCurrentUser().getUid();
+//                                    database = FirebaseDatabase.getInstance().getReference("users").child(userId);
+//                                   database.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                       @Override
+//                                       public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                           User user  = snapshot.getValue(User.class);
+//                                           if (user != null && user.getRole().equals("client")){
+//                                               // Sign in success, update UI with the signed-in user's information
+//                                               Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+//                                                       Toast.LENGTH_SHORT).show();
+//                                               Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
+//                                               startActivity(intent);
+//                                               finish();
+//                                           }else {
+//                                               Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+//                                                       Toast.LENGTH_SHORT).show();
+//                                               Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+//                                               startActivity(intent);
+//                                               finish();
+//                                           }
+//                                       }
+//
+//                                       @Override
+//                                       public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                           Toast.makeText(LoginActivity.this,"echec d'obtenir les données utilisateur",Toast.LENGTH_SHORT).show();
+//
+//
+//                                       }
+//                                   });
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",

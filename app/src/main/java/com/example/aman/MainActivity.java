@@ -26,35 +26,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         checkUserAuthentication();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
-        /*if(currentUser != null){
-            database = FirebaseDatabase.getInstance().getReference().child("users");
-            database.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        User user = dataSnapshot.getValue(User.class);
-                        if (user.getEmail().equals(currentUser.getEmail())){
-                            if (user.getRole().equals("client")){
-                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }else {
-                                Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }*/
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

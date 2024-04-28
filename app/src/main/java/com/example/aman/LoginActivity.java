@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     }else {
                                                         Toast.makeText(LoginActivity.this, "Authentication succeeded.",
                                                                 Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
+                                                        Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
                                                         startActivity(intent);
                                                         finish();
                                                     }

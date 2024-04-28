@@ -21,30 +21,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aman.databinding.ActivityHomeBinding;
+import com.example.aman.databinding.ActivityHomeSpBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
-    ActivityHomeBinding binding;
-
+public class HomeSpActivity extends AppCompatActivity {
+    ActivityHomeSpBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeSpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeSpFragment());
         binding.navigationbar.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home){
-                replaceFragment(new HomeFragment());
+                replaceFragment(new HomeSpFragment());
+            } else if (itemId == R.id.orders) {
+                replaceFragment(new OrdersFragment());
             } else if (itemId == R.id.profile) {
                 replaceFragment(new ProfileFragment());
             }
             return true;
         });
-
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Aman"
         tools:targetApi="31">
         <activity
+            android:name=".HomeSpActivity"
+            android:exported="false" />
+        <activity
             android:name=".ServiceProviderHome"
             android:exported="false" />
         <activity

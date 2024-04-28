@@ -81,13 +81,13 @@ public class LoginActivity extends AppCompatActivity {
                                                     if (user.getRole().equals("client")){
                                                         Toast.makeText(LoginActivity.this, "Authentication succeeded.",
                                                                 Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
+                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                         startActivity(intent);
                                                         finish();
                                                     }else {
                                                         Toast.makeText(LoginActivity.this, "Authentication succeeded.",
                                                                 Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                        Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
                                                         startActivity(intent);
                                                         finish();
                                                     }
@@ -99,36 +99,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                         }
                                     });
-//                                    String userId = mAuth.getCurrentUser().getUid();
-//                                    database = FirebaseDatabase.getInstance().getReference("users").child(userId);
-//                                   database.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                       @Override
-//                                       public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                           User user  = snapshot.getValue(User.class);
-//                                           if (user != null && user.getRole().equals("client")){
-//                                               // Sign in success, update UI with the signed-in user's information
-//                                               Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-//                                                       Toast.LENGTH_SHORT).show();
-//                                               Intent intent = new Intent(getApplicationContext(), RoutingActivity.class);
-//                                               startActivity(intent);
-//                                               finish();
-//                                           }else {
-//                                               Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-//                                                       Toast.LENGTH_SHORT).show();
-//                                               Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-//                                               startActivity(intent);
-//                                               finish();
-//                                           }
-//                                       }
-//
-//                                       @Override
-//                                       public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                           Toast.makeText(LoginActivity.this,"echec d'obtenir les données utilisateur",Toast.LENGTH_SHORT).show();
-//
-//
-//                                       }
-//                                   });
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",

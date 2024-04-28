@@ -244,10 +244,4 @@
                 />
         </LinearLayout>
     </ScrollView>
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:name="com.example.aman.NavBarFragment"
-        />
 </RelativeLayout>

@@ -22,12 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference database;
-    /*@Override
+    @Override
     public void onStart() {
         super.onStart();
+        checkUserAuthentication();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        /*if(currentUser != null){
             database = FirebaseDatabase.getInstance().getReference().child("users");
             database.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }
-    }*/
+        }*/
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void goToLogin(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goToSignUp(View view) {
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivity(intent);
+        finish();
     }
     private void checkUserAuthentication() {
         FirebaseUser currentUser = mAuth.getCurrentUser();

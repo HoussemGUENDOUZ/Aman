@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6dp"
+    android:elevation="6dp"
+    app:cardUseCompatPadding="true"
+
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:text="12/12/24  11:30 pm"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:drawableStart="@drawable/baseline_calendar_today_24"
+        android:layout_marginHorizontal="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/date"
+        android:layout_alignParentRight="true"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Refuser"
+            android:id="@+id/cancel_btn"
+            android:gravity="center"
+            android:backgroundTint="#F22727"
+            android:textColor="@color/white"
+            android:background="@drawable/edit_txt"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Accept"
+            android:id="@+id/accept_btn"
+            android:backgroundTint="#00A36C"
+            android:textColor="@color/white"
+            android:background="@drawable/edit_txt"
+            android:layout_marginHorizontal="10dp" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

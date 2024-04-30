@@ -11,6 +11,15 @@ public class ServiceProvider {
     String position;
     boolean mobility;
     boolean status;
+    String user_id;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     int rating;
     int orderNumber;
@@ -121,4 +130,5 @@ int experience;
     public void setExperience(int experience) {
         this.experience = experience;
     }
+
 }

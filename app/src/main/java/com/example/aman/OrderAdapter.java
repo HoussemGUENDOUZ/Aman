@@ -93,4 +93,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
 
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

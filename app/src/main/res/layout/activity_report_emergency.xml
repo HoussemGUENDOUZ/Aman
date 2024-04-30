@@ -62,18 +62,21 @@
             android:layout_height="wrap_content"
             android:src="@drawable/police_man"
             android:layout_weight="1"
+            android:id="@+id/policeIV"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/civile_protection"
             android:layout_weight="1"
+            android:id="@+id/protectionCivileIV"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/gendarmerie"
+            android:id="@+id/gendarmerieIV"
             />
     </LinearLayout>
     <TextView
@@ -99,18 +102,21 @@
             android:layout_height="wrap_content"
             android:src="@drawable/fire"
             android:layout_weight="1"
+            android:id="@+id/fireIV"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/accident_icon"
             android:layout_weight="1"
+            android:id="@+id/AccidentIV"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/earthquake_icon"
+            android:id="@+id/earthquakeIV"
             />
     </LinearLayout>
     <LinearLayout
@@ -138,6 +144,7 @@
             android:textColorHint="@color/grisBold"
             android:drawableEnd="@drawable/back_downn"
             android:layout_marginTop="10dp"
+            android:id="@+id/descriptionET"
             />
         <Button
             android:layout_width="240dp"
@@ -151,6 +158,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
+            android:id="@+id/addImg_btn"
             />
         <Button
             android:layout_width="match_parent"
@@ -164,6 +172,7 @@
             android:textColor="@color/white"
             android:textSize="28dp"
             android:textStyle="bold"
+            android:id="@+id/signaler_btn"
             />
     </LinearLayout>
 </RelativeLayout>

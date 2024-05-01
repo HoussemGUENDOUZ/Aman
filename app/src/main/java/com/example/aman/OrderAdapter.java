@@ -49,7 +49,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             @Override
             public void onClick(View v) {
                 //database.orderByChild();
-                order.setStatus("accepted");
+                FirebaseDatabase.getInstance().getReference("orders").child(order.getId()).child("status").setValue("refused");
             }
         });
         refuse.setOnClickListener(new View.OnClickListener() {

@@ -86,12 +86,6 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         demander.setOnClickListener(v -> {
             loadingDialog.startLoadingDialog();
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loadingDialog.dismissDialog();
-                }
-            },90000);
             //Intent intent = new Intent(context,Contact.class);
             //boolean status = serviceProvider.isStatus();
           //  String demande = "demande arriver";
@@ -115,8 +109,14 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
             order.setClient_id(currentUserKey);
             assert orderId != null;
             ordersRef.child(orderId).setValue(order);
-            
-            
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                    FirebaseDatabase.getInstance().getReference().child("orders").child(orderId).child("status").setValue("refused");
+                    Toast.makeText(context,"Aucune réponse du fournisseur de service",Toast.LENGTH_SHORT).show();
+                }
+            },90000);
             // get order statut
             ordersRef.addValueEventListener(new ValueEventListener() {
                 @Override

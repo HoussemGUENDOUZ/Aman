@@ -22,9 +22,9 @@ public class Contact extends AppCompatActivity {
             return insets;
         });
 
-
-        //String data = getIntent().getStringExtra("demande");
-        //TextView tv = (TextView) findViewById(R.id.contact);
-        //tv.setText(data);
+// send data to activity
+//        String data = getIntent().getStringExtra("demande");
+//        TextView tv = (TextView) findViewById(R.id.contact);
+//        tv.setText(data);
     }
 }

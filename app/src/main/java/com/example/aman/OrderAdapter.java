@@ -9,7 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,8 +53,18 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //database.orderByChild();
-                order.setStatus("accepted");
+
+                DatabaseReference orderRef = database.child(order.getId());
+
+                orderRef.child("status").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(context, "le fournisseur accepte votre demande", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
         });
         refuse.setOnClickListener(new View.OnClickListener() {

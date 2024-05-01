@@ -43,7 +43,6 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         this.context= context;
         this.resourceLayout = resource;
         this.items = items;
-        loadingDialog = new LoadingDialog(context);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,6 +56,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         ServiceProvider serviceProvider = items.get(position);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        //loadingDialog = new LoadingDialog(context);
         DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("users");
         users.orderByChild("email").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,21 +76,19 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         ImageView star = layout.findViewById(R.id.star1);
         // demander un service providere
         Button demander = layout.findViewById(R.id.demander);
-
       //  imageView.setImageResource(serviceProvider.getService_img());
         name.setText(serviceProvider.getFirstName()+ " " +serviceProvider.getLastName());
         exprience.setText(serviceProvider.getExperience() + " years of experience ");
 //        imageView.setImageResource(items.get(position).service_img);
 //        textView.setText(items.get(position).service_type);
-
         demander.setOnClickListener(v -> {
+            loadingDialog = new LoadingDialog(context);
             loadingDialog.startLoadingDialog();
             Handler handler = new Handler();
             //Intent intent = new Intent(context,Contact.class);
             //boolean status = serviceProvider.isStatus();
           //  String demande = "demande arriver";
             //Intent intent = new Intent(HomeActivity.this, MecServiceProviderActivity.class);
-
 //            intent.putExtra("demande",demande);
 //            context.startActivity(intent);
             // create new order
@@ -105,18 +103,17 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
             order.setCreated_at(System.currentTimeMillis());
             String serviceProviderId = items.get(position).getUser_id(); // Assuming you have a method to retrieve Firebase key
             order.setService_provider_id(serviceProviderId);
-            //order.setService_provider_id();
             order.setClient_id(currentUserKey);
             assert orderId != null;
             ordersRef.child(orderId).setValue(order);
-            handler.postDelayed(new Runnable() {
+            /*handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     loadingDialog.dismissDialog();
                     FirebaseDatabase.getInstance().getReference().child("orders").child(orderId).child("status").setValue("refused");
                     Toast.makeText(context,"Aucune réponse du fournisseur de service",Toast.LENGTH_SHORT).show();
                 }
-            },90000);
+            },90000);*/
             // get order statut
             ordersRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -133,16 +130,11 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
                         }
                     }
                 }
-
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
         });
         return layout;
-
-
     }
 //    private void showProgressBar() {
 //        // Create and show the progress bar

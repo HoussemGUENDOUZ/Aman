@@ -118,7 +118,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                         Order order= dataSnapshot.getValue(Order.class);
-                        if (order != null && order.getId().equals(orderId) && order.getStatus().equals("confirmed")){
+                        if (order != null && order.getId().equals(orderId) && order.getStatus().equals("accepted")){
                             loadingDialog.dismissDialog();
                             Intent intent = new Intent(getContext(),Contact.class);
                             context.startActivity(intent);

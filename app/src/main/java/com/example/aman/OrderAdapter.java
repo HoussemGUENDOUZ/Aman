@@ -9,17 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class OrderAdapter extends ArrayAdapter<Order> {
 
@@ -35,7 +30,6 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         this.items = items;
         database = FirebaseDatabase.getInstance().getReference("orders");
     }
-
     public View getView(int position, View convertView, ViewGroup parent) {
         View layout = convertView;
         if (layout == null) {
@@ -43,9 +37,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             inflater = LayoutInflater.from(context);
             layout = inflater.inflate(resourceLayout, null);
         }
-
         Order order = items.get(position);
-
         MaterialTextView  date = layout.findViewById(R.id.date);
         Button accept = layout.findViewById(R.id.accept_btn);
         Button refuse = layout.findViewById(R.id.cancel_btn);
@@ -53,11 +45,10 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
         String formattedDate = sdf.format(date1);
         date.setText(formattedDate);
-
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //database.orderByChild();
+                //database.orderByChild();
                 order.setStatus("accepted");
             }
         });
@@ -67,14 +58,6 @@ public class OrderAdapter extends ArrayAdapter<Order> {
                 order.setStatus("refused");
             }
         });
-
-
-return layout;
-
-
+        return layout;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master

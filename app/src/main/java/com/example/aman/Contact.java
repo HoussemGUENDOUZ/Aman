@@ -23,8 +23,8 @@ public class Contact extends AppCompatActivity {
         });
 
 
-        String data = getIntent().getStringExtra("demande");
-        TextView tv = (TextView) findViewById(R.id.contact);
-        tv.setText(data);
+        //String data = getIntent().getStringExtra("demande");
+        //TextView tv = (TextView) findViewById(R.id.contact);
+        //tv.setText(data);
     }
 }

@@ -4,6 +4,7 @@ package com.example.aman;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -34,7 +36,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String currentUserKey;
-     LoadingDialog loadingDialog ;
+    LoadingDialog loadingDialog ;
 
     public ServiceProviderAdapter(@NonNull Context context, int resource, List<ServiceProvider> items) {
         super(context, resource, items);
@@ -52,7 +54,6 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
             inflater = LayoutInflater.from(context);
             layout = inflater.inflate(resourceLayout, null);
         }
-
         ServiceProvider serviceProvider = items.get(position);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -67,9 +68,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
                 }
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
         ImageView imageView = layout.findViewById(R.id.sp_img);
         TextView name = layout.findViewById(R.id.spName);
@@ -86,7 +85,13 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
 
         demander.setOnClickListener(v -> {
             loadingDialog.startLoadingDialog();
-
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                }
+            },90000);
             //Intent intent = new Intent(context,Contact.class);
             //boolean status = serviceProvider.isStatus();
           //  String demande = "demande arriver";
@@ -122,6 +127,9 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
                             loadingDialog.dismissDialog();
                             Intent intent = new Intent(getContext(),Contact.class);
                             context.startActivity(intent);
+                        } else if (order != null && order.getId().equals(orderId) && order.getStatus().equals("refused")) {
+                            loadingDialog.dismissDialog();
+                            Toast.makeText(context,"fournisseur de service a refusé votre demande",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

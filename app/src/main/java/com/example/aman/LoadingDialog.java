@@ -29,8 +29,7 @@ public class LoadingDialog {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         builder.setView(inflater.inflate(R.layout.custom_progress_bar,null));
-        builder.setCancelable(true);
-
+        builder.setCancelable(false);
         dialog = builder.create();
         dialog.show();
 

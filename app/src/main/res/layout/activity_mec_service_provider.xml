@@ -61,12 +61,13 @@
         android:textSize="20dp"
 
         />
+
  <ScrollView
      android:layout_width="match_parent"
      android:layout_height="600dp"
      android:layout_below="@+id/search_bar_filter"
      android:id="@+id/listServiceProvidersSV"
-android:layout_above="@+id/navBarMecFragment"
+
      >
      <ListView
          android:layout_width="match_parent"
@@ -78,5 +79,7 @@ android:layout_above="@+id/navBarMecFragment"
          android:layout_marginTop="20dp"
          android:id="@+id/listServiceProviders"
          />
+
+
  </ScrollView>
 </RelativeLayout>

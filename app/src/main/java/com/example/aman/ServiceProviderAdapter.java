@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,12 +34,14 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String currentUserKey;
+     LoadingDialog loadingDialog ;
 
     public ServiceProviderAdapter(@NonNull Context context, int resource, List<ServiceProvider> items) {
         super(context, resource, items);
         this.context= context;
         this.resourceLayout = resource;
         this.items = items;
+        loadingDialog = new LoadingDialog(context);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -82,18 +85,19 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
 //        textView.setText(items.get(position).service_type);
 
         demander.setOnClickListener(v -> {
+            loadingDialog.startLoadingDialog();
 
-            Intent intent = new Intent(context,Contact.class);
+            //Intent intent = new Intent(context,Contact.class);
             //boolean status = serviceProvider.isStatus();
-            String demande = "demande arriver";
+          //  String demande = "demande arriver";
             //Intent intent = new Intent(HomeActivity.this, MecServiceProviderActivity.class);
 
-            intent.putExtra("demande",demande);
-            context.startActivity(intent);
+//            intent.putExtra("demande",demande);
+//            context.startActivity(intent);
             // create new order
             //Date currentDate = new Date();
-            DatabaseReference oredersRef = FirebaseDatabase.getInstance().getReference("orders");
-            String orderId = oredersRef.push().getKey();
+            DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders");
+            String orderId = ordersRef.push().getKey();
             Order order = new Order();
             order.setId(orderId);
             order.setStatus("pending");
@@ -105,10 +109,39 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
             //order.setService_provider_id();
             order.setClient_id(currentUserKey);
             assert orderId != null;
-            oredersRef.child(orderId).setValue(order);
+            ordersRef.child(orderId).setValue(order);
+            
+            
+            // get order statut
+            ordersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        Order order= dataSnapshot.getValue(Order.class);
+                        if (order != null && order.getId().equals(orderId) && order.getStatus().equals("confirmed")){
+                            loadingDialog.dismissDialog();
+                            Intent intent = new Intent(getContext(),Contact.class);
+                            context.startActivity(intent);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
         return layout;
 
 
     }
+//    private void showProgressBar() {
+//        // Create and show the progress bar
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        View progressBarView = inflater.inflate(R.layout.progress_bar_layout, null);
+//        ProgressBar progressBar = progressBarView.findViewById(R.id.progressBar);
+//        ViewGroup rootView = (ViewGroup) ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
+//        rootView.addView(progressBarView);
+//    }
 }

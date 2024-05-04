@@ -68,14 +68,14 @@
             android:text="GUNDOUZ Houssem"
             android:textSize="20dp"
             android:textStyle="bold"
-
-
+            android:id="@+id/name"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="specialite"
             android:textSize="20dp"
+            android:id="@+id/specialite"
 
             />
 
@@ -140,6 +140,7 @@
      <ImageButton
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:id="@+id/call_btn"
          android:src="@drawable/baseline_call_24"
          android:backgroundTint="@color/bleu2"
          android:gravity="right"
@@ -154,9 +155,26 @@
         android:layout_height="60dp"
         android:text="valider l'operation"
         android:id="@+id/valider_operation"
+        android:layout_above="@+id/annuler_operation"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/bleu"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/edit_txt"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Annuler l'operation"
+        android:id="@+id/annuler_operation"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/bleu"
+        android:backgroundTint="@color/redE"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/edit_txt"
         android:textColor="@color/white"

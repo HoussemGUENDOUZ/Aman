@@ -61,6 +61,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             //Toast.makeText(context, "le fournisseur accepte votre demande", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });

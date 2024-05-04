@@ -1,7 +1,5 @@
 package com.example.aman;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
 import java.util.List;
 
 public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
@@ -79,7 +74,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         // demander un service providere
         Button demander = layout.findViewById(R.id.demander);
 
-      //  imageView.setImageResource(serviceProvider.getService_img());
+        //  imageView.setImageResource(serviceProvider.getService_img());
         name.setText(serviceProvider.getFirstName()+ " " +serviceProvider.getLastName());
         exprience.setText(serviceProvider.getExperience() + " years of experience ");
 //        imageView.setImageResource(items.get(position).service_img);
@@ -90,7 +85,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
             Handler handler = new Handler();
             //Intent intent = new Intent(context,Contact.class);
             //boolean status = serviceProvider.isStatus();
-          //  String demande = "demande arriver";
+            //  String demande = "demande arriver";
             //Intent intent = new Intent(HomeActivity.this, MecServiceProviderActivity.class);
 
 //            intent.putExtra("demande",demande);

@@ -42,17 +42,16 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             inflater = LayoutInflater.from(context);
             layout = inflater.inflate(resourceLayout, null);
         }
-        Order order = items.get(position);
-        MaterialTextView  date = layout.findViewById(R.id.date);
-        Button accept = layout.findViewById(R.id.accept_btn);
-        Button refuse = layout.findViewById(R.id.cancel_btn);
-        Date date1 = new Date(order.getCreated_at());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        String formattedDate = sdf.format(date1);
-        date.setText(formattedDate);
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (resourceLayout == R.layout.item_order_sp){
+            Order order = items.get(position);
+            MaterialTextView  date = layout.findViewById(R.id.date);
+            Button accept = layout.findViewById(R.id.accept_btn);
+            Button refuse = layout.findViewById(R.id.cancel_btn);
+            Date date1 = new Date(order.getCreated_at());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+            String formattedDate = sdf.format(date1);
+            date.setText(formattedDate);
+            accept.setOnClickListener(v -> {
 
                 DatabaseReference orderRef = database.child(order.getId());
 
@@ -66,14 +65,16 @@ public class OrderAdapter extends ArrayAdapter<Order> {
                     }
                 });
 
-            }
-        });
-        refuse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("orders").child(order.getId()).child("status").setValue("refused");
-            }
-        });
+            });
+            refuse.setOnClickListener(v -> FirebaseDatabase.getInstance().getReference().child("orders").child(order.getId()).child("status").setValue("refused"));
+        } else if (resourceLayout == R.layout.item_order_history) {
+            Order order = items.get(position);
+            MaterialTextView  date = layout.findViewById(R.id.date);
+            Date date1 = new Date(order.getCreated_at());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+            String formattedDate = sdf.format(date1);
+            date.setText(formattedDate);
+        }
         return layout;
     }
 }

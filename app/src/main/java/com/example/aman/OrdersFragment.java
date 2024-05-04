@@ -1,14 +1,10 @@
 package com.example.aman;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +12,6 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +28,9 @@ public class OrdersFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser  user;
     String currentUserKey;
-    ListView recent_ordersLV;
-    List<Order> recentOrders;
-    OrderAdapter adapter;
+    ListView recent_ordersLV,history_ordersLV;
+    List<Order> recentOrders,historyOrders;
+    OrderAdapter adapter,history;
     DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("orders");
     private String mParam1;
     private String mParam2;
@@ -69,10 +64,12 @@ public class OrdersFragment extends Fragment {
         user = mAuth.getCurrentUser();
         DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("users");
         recent_ordersLV = view.findViewById(R.id.recentordersLV);
+        history_ordersLV = view.findViewById(R.id.historyordersLV);
         recentOrders = new ArrayList<>();
-
-        //
-        adapter = new OrderAdapter(requireContext(),R.layout.item_order ,recentOrders);
+        historyOrders = new ArrayList<>();
+        history = new OrderAdapter(requireContext(),R.layout.item_order_history,historyOrders);
+        history_ordersLV.setAdapter(history);
+        adapter = new OrderAdapter(requireContext(),R.layout.item_order_sp,recentOrders);
         recent_ordersLV.setAdapter(adapter);
         assert user != null;
         users.orderByChild("email").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,15 +90,20 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 recentOrders = new ArrayList<>();
+                historyOrders = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Order order = dataSnapshot.getValue(Order.class);
                     assert order != null;
                     if (Objects.equals(order.service_provider_id, currentUserKey) && Objects.equals(order.status, "pending")){
                         recentOrders.add(order);
+                    } else if (Objects.equals(order.service_provider_id, currentUserKey) && Objects.equals(order.status, "delivered")) {
+                        historyOrders.add(order);
                     }
                 }
-                adapter = new OrderAdapter(requireContext(),R.layout.item_order ,recentOrders);
+                adapter = new OrderAdapter(requireContext(),R.layout.item_order_sp,recentOrders);
                 recent_ordersLV.setAdapter(adapter);
+                history = new OrderAdapter(requireContext(),R.layout.item_order_history,historyOrders);
+                history_ordersLV.setAdapter(history);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}

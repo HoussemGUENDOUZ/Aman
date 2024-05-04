@@ -7,15 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class HomeSpFragment extends Fragment {
-
-
+    private boolean statusAnimation = false;
+    private Handler handlerAnimation = new Handler();
+    private ImageView imgAnimation1, imgAnimation2;
+    private Button sos_button;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -50,6 +54,18 @@ public class HomeSpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_sp, container, false);
+        imgAnimation1 = view.findViewById(R.id.imgAnimation1);
+        imgAnimation2 = view.findViewById(R.id.imgAnimation2);
+        sos_button = view.findViewById(R.id.sos_button);
+        //sos button on click listener
+        sos_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ReportEmergencyActivity.class);
+                startActivity(intent);
+            }
+        });
+        startPulse();
         viewOrder = (Button) view.findViewById(R.id.viewOrder);
         viewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +79,32 @@ public class HomeSpFragment extends Fragment {
             }
         });
         return view;
-
     }
-
+    private void startPulse() {
+        handlerAnimation.post(runnable);
+    }
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            imgAnimation1.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1000)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgAnimation1.setScaleX(1f);
+                            imgAnimation1.setScaleY(1f);
+                            imgAnimation1.setAlpha(1f);
+                        }
+                    });
+            imgAnimation2.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(700)
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgAnimation2.setScaleX(1f);
+                            imgAnimation2.setScaleY(1f);
+                            imgAnimation2.setAlpha(1f);
+                        }
+                    });
+            handlerAnimation.postDelayed(this, 1500);
+        }
+    };
 }

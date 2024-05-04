@@ -1,33 +1,17 @@
 package com.example.aman;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aman.databinding.ActivityHomeBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +23,13 @@ public class HomeActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.home){
                 replaceFragment(new HomeFragment());
+            } else if (itemId == R.id.store) {
+                replaceFragment(new StoreFragment());
             } else if (itemId == R.id.profile) {
                 replaceFragment(new ProfileFragment());
             }
             return true;
         });
-
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();

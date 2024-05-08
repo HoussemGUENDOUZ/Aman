@@ -8,6 +8,17 @@ public class User {
     String email;
     String phoneNumber;
     String role;
+    String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+
 
 
     public String getEmail() {

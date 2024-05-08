@@ -74,7 +74,7 @@ public class Contact extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        Toast.makeText(Contact.this,"this is spid "+ recivedId, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(Contact.this,"this is spid "+ recivedId, Toast.LENGTH_SHORT).show();
 
         intent1 = new Intent(Contact.this , HomeActivity.class);
         intent2 = new  Intent(Contact.this , MecServiceProviderActivity.class);

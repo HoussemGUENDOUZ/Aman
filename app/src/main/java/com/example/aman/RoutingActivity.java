@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -234,6 +235,10 @@ public class RoutingActivity extends AppCompatActivity {
                 Location loc = lm.getLastKnownLocation(provider);
                 if(loc != null){
                     // call last known location !!!!!1
+                    Double alt = loc.getAltitude();
+                    Double log = loc.getLongitude();
+                    Double lat = loc.getLatitude();
+                    Toast.makeText(RoutingActivity.this, "ur position " + alt + log + lat , Toast.LENGTH_SHORT).show();
                 }
 
             }catch (SecurityException e){
@@ -264,10 +269,15 @@ public class RoutingActivity extends AppCompatActivity {
                 double longitude = loc.getLongitude();
                 double latitude = loc.getLatitude();
                 double altitude = loc.getAltitude();
+                Toast.makeText(RoutingActivity.this, "ur place" + longitude + latitude + altitude, Toast.LENGTH_SHORT).show();
             } else {
                 Log.i("GeoFragment", "aucune position connue");
             }
         } else
             Log.i("GeoFragment", "aucune fournisseur de localisation disponible");
+    }
+
+    public void getPosition(){
+
     }
 }

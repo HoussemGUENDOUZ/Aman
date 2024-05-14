@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     boolean passwordVisible,confirmpasswordVisible;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    LoadingDialog dialog;
     @Override
     public void onStart() {
         super.onStart();
@@ -113,10 +114,11 @@ public class SignUpActivity extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog = new LoadingDialog(SignUpActivity.this,"veuillez patienter...");
+                dialog.startLoadingDialog();
                 String email = emailET.getText().toString();
                 String phone_number = phone_numberET.getText().toString();
                 String password = passwordET.getText().toString();
-                String confirm_password = confirm_passwordET.getText().toString();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -140,25 +142,6 @@ public class SignUpActivity extends AppCompatActivity {
                         });
             }
         });
-
-
-
-
-
-        // add user
-
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference usersRef = database.getReference("users");
-//
-//        User user = new User();
-//        user.setEmail(user.email);
-//        user.setPhoneNumber(user.phoneNumber);
-//        user.setRole("serviceProvider");
-//
-//        String userId = usersRef.push().getKey();
-//        usersRef.child(userId).setValue(user);
-
     }
 
     @Override

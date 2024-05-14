@@ -93,6 +93,7 @@
             android:textColor="@color/grisBold"
             />
         <TextView
+            android:id="@+id/forgotten_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="mot de passe oublie ?"
@@ -178,6 +179,7 @@
             android:textStyle="normal"
             />
         <TextView
+            android:id="@+id/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="S'inscrire "

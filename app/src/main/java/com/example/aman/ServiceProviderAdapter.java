@@ -57,7 +57,7 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
         this.context= context;
         this.resourceLayout = resource;
         this.items = items;
-        loadingDialog = new LoadingDialog(context);
+        loadingDialog = new LoadingDialog(context,"En attente d'une reponse du fournniseur ...");
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

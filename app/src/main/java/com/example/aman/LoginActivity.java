@@ -11,24 +11,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 public class LoginActivity extends AppCompatActivity {
     EditText passwordET, emailET;
     Button loginbtn;
@@ -36,7 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference database;
     FirebaseUser currentUser;
-
+    TextView signupTV;
+    LoadingDialog dialog ;
     @Override
     public void onStart() {
         super.onStart();
@@ -56,57 +51,64 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         emailET = findViewById(R.id.email);
         passwordET = findViewById(R.id.password);
+        signupTV = findViewById(R.id.sign_up);
+        signupTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
         loginbtn = findViewById(R.id.login_btn);
         //initialize disabled button
         loginbtn.setEnabled(false);
         //login button onclick listener
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String email = emailET.getText().toString();
-                String password = passwordET.getText().toString();
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    database = FirebaseDatabase.getInstance().getReference().child("users");
-                                    database.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            for (DataSnapshot datasnapshot : snapshot.getChildren()){
-                                                User user = datasnapshot.getValue(User.class);
-                                                if (user.getEmail().equals(email)){
-                                                    if (user.getRole().equals("client")){
-                                                        Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                                                Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }else {
-                                                        Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                                                Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }
-                                                }
+        loginbtn.setOnClickListener(v -> {
+            dialog = new LoadingDialog(LoginActivity.this,"veuillez patienter...");
+            dialog.startLoadingDialog();
+            String email = emailET.getText().toString();
+            String password = passwordET.getText().toString();
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            database = FirebaseDatabase.getInstance().getReference().child("users");
+                            database.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot datasnapshot : snapshot.getChildren()){
+                                        User user = datasnapshot.getValue(User.class);
+                                        assert user != null;
+                                        if (user.getEmail().equals(email)){
+                                            if (user.getRole().equals("client")){
+                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                dialog.dismissDialog();
+                                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else {
+                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                dialog.dismissDialog();
+                                                Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
+                                                startActivity(intent);
+                                                finish();
                                             }
                                         }
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
-            }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            dialog.dismissDialog();
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
         //disable and enable login button
         emailET.addTextChangedListener(logintextwatcher);
@@ -133,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         });
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -141,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
     TextWatcher logintextwatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -2,17 +2,16 @@ package com.example.aman;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,24 +56,26 @@ public class HomeFragment extends Fragment {
         imgAnimation2 = view.findViewById(R.id.imgAnimation2);
         sos_button = view.findViewById(R.id.sos_button);
         //sos button on click listener
-        sos_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ReportEmergencyActivity.class);
-                startActivity(intent);
-            }
+        sos_button.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ReportEmergencyActivity.class);
+            startActivity(intent);
         });
         startPulse();
         //  adapter
-        ListView listView =  view.findViewById(R.id.lv1);
+        RecyclerView recyclerView =  view.findViewById(R.id.lv1);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         List<ServicesAvailable> items = new ArrayList<>();
         items.add(new ServicesAvailable(R.drawable.mecanicien_img, "Mecanicien"));
         items.add(new ServicesAvailable(R.drawable.electericien_img, "Electricien"));
         //items.add(new ServicesAvailable(R.drawable.depanneur_img, "Depanneur"));
         //items.add(new ServicesAvailable(R.drawable.hotel_img, "Hotel"));
-        ServiceAvailableAdapter adapter = new ServiceAvailableAdapter(getContext(), R.layout.item_service_availabale, items);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ServiceAvailableAdapter adapter = new ServiceAvailableAdapter(getContext(), R.layout.item_service_availabale, items, service -> {
+            Intent intent = new Intent(getContext(), MecServiceProviderActivity.class);
+            intent.putExtra("serviceType", service.getService_type());
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(adapter);
+        /*recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ServicesAvailable servicesAvailable = (ServicesAvailable) parent.getItemAtPosition(position);
@@ -93,7 +94,7 @@ public class HomeFragment extends Fragment {
 //                        break;
 //                }
             }
-        });
+        });*/
         return view;
     }
     private void startPulse() {
@@ -103,22 +104,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void run() {
             imgAnimation1.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1000)
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            imgAnimation1.setScaleX(1f);
-                            imgAnimation1.setScaleY(1f);
-                            imgAnimation1.setAlpha(1f);
-                        }
+                    .withEndAction(() -> {
+                        imgAnimation1.setScaleX(1f);
+                        imgAnimation1.setScaleY(1f);
+                        imgAnimation1.setAlpha(1f);
                     });
             imgAnimation2.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(700)
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            imgAnimation2.setScaleX(1f);
-                            imgAnimation2.setScaleY(1f);
-                            imgAnimation2.setAlpha(1f);
-                        }
+                    .withEndAction(() -> {
+                        imgAnimation2.setScaleX(1f);
+                        imgAnimation2.setScaleY(1f);
+                        imgAnimation2.setAlpha(1f);
                     });
             handlerAnimation.postDelayed(this, 1500);
         }

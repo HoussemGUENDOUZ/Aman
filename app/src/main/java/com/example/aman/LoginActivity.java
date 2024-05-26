@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn.setEnabled(false);
         //login button onclick listener
         loginbtn.setOnClickListener(v -> {
-            dialog = new LoadingDialog(LoginActivity.this,"veuillez patienter...");
+            dialog = new LoadingDialog(LoginActivity.this,"veuillez patienter...",false);
             dialog.startLoadingDialog();
             String email = emailET.getText().toString();
             String password = passwordET.getText().toString();
@@ -151,8 +151,8 @@ public class LoginActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String email = emailET.getText().toString().trim();
             String password = passwordET.getText().toString().trim();
-            loginbtn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6);
-            if (!email.isEmpty() && !password.isEmpty() && password.length()>6){
+            loginbtn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6 && isValidEmail(email));
+            if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && isValidEmail(email)){
                 //fields are not empty
                 loginbtn.setTextColor(Color.parseColor("#ffffff"));
                 loginbtn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu));
@@ -167,4 +167,8 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     };
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
 }

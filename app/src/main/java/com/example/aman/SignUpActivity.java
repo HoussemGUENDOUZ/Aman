@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = new LoadingDialog(SignUpActivity.this,"veuillez patienter...");
+                dialog = new LoadingDialog(SignUpActivity.this,"veuillez patienter...",false);
                 dialog.startLoadingDialog();
                 String email = emailET.getText().toString();
                 String phone_number = phone_numberET.getText().toString();
@@ -124,15 +124,31 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+
+                                    // Send verification email
+                                    user.sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        dialog.setMessage("veuillez vérifier votre email");
+                                                        Map<String,Object> map =new HashMap<>();
+                                                        map.put("phone_number",phone_number);
+                                                        map.put("email",email);
+                                                        map.put("role","client");
+                                                        //map.put("user_id",currentUser.getUid());
+                                                        FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
+                                                        dialog.dismissDialog();
+                                                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                                                        //Toast.makeText(SignUpActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                     Toast.makeText(SignUpActivity.this, "Authentication succeeded.",
                                             Toast.LENGTH_SHORT).show();
-                                    Map<String,Object> map =new HashMap<>();
-                                    map.put("phone_number",phone_number);
-                                    map.put("email",email);
-                                    map.put("role","client");
-                                    //map.put("user_id",currentUser.getUid());
-                                    FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
-                                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
@@ -163,8 +179,8 @@ public class SignUpActivity extends AppCompatActivity {
             String password = passwordET.getText().toString().trim();
             String phone_number =phone_numberET.getText().toString().trim();
             String confirm_password = confirm_passwordET.getText().toString().trim();
-            signup_btn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && phone_number.length()==10 && password.equals(confirm_password));
-            if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && password.equals(confirm_password) && phone_number.length()==10){
+            signup_btn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && phone_number.length()==10 && password.equals(confirm_password) && isValidEmail(email));
+            if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && password.equals(confirm_password) && phone_number.length()==10 && isValidEmail(email)){
                 //fields are not empty
                 signup_btn.setTextColor(Color.parseColor("#ffffff"));
                 signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu));
@@ -179,4 +195,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
     };
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
 }

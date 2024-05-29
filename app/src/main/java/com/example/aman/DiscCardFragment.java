@@ -159,6 +159,8 @@ public class DiscCardFragment extends Fragment {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {}
                             });
+
+                            //what this below !!
                             String street = addresses.get(0).getThoroughfare();
                             if (street != null) {
                                 // Display street

@@ -208,17 +208,18 @@ public class ServiceProviderAdapter extends ArrayAdapter<ServiceProvider> {
                             Log.d("response", response);
                             JSONObject jsonResponse = new JSONObject(response);
                             JSONArray durations = jsonResponse.getJSONArray("durations");
-
-                            // Iterate through the durations array
+                            //JSONArray distances = jsonResponse.getJSONArray("destinations");
+                             // Iterate through the durations array
                             for (int i = 0; i < durations.length(); i++) {
                                 JSONArray durationArray = durations.getJSONArray(i);
                                 // Check if the second element of the inner array is 5697.92
-                                if (durationArray.getDouble(1) == 5697.92) {
+                                if (durationArray.getDouble(1) != 0 ) {
                                     // Extract the index and duration value
                                     double duration = durationArray.getDouble(1);
-                                    Log.d("Duration", String.valueOf(duration));
+                                    Log.d("Duration", String.valueOf(duration/60));
+                                    //Log.d("destination", String.valueOf(distance));
                                     Toast.makeText(context, Double.toString(duration),Toast.LENGTH_SHORT).show();
-                                    distnace.setText(String.format("%.2f minutes", duration / 60));
+                                    distnace.setText(String.format("%.2f min", duration / 60));
                                   //  distnace.setText(String.format( duration / 60 + "min"));
                                     break; // Exit the loop once the duration is found
                                 }

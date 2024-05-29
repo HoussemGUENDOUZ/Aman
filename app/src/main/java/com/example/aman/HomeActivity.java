@@ -1,6 +1,12 @@
 package com.example.aman;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +36,33 @@ public class HomeActivity extends AppCompatActivity {
             }
             return true;
         });
+
+//        Intent serviceIntent = new Intent(this, ForegroundLocationService.class);
+//        startService(serviceIntent);
+        // In your activity
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(android.Manifest.permission.FOREGROUND_SERVICE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.FOREGROUND_SERVICE_LOCATION
+                }, 1);
+            } else {
+                // Permissions are already granted, start your service
+if (!foregroundServiceRunning()){
+    startForegroundService(new Intent(this, ForegroundLocationService.class));
+}
+
+            }
+        } else {
+            // Permissions are already granted, start your service
+            if (!foregroundServiceRunning()){
+                startForegroundService(new Intent(this, ForegroundLocationService.class));
+            }
+        }
+
+
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -37,4 +70,31 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentsFL,fragment);
         fragmentTransaction.commit();
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            Toast.makeText(this,"requestCode",Toast.LENGTH_SHORT).show();
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // Permissions granted, start your service
+                startForegroundService(new Intent(this, ForegroundLocationService.class));
+            } else {
+                // Permissions denied, show a message to the user
+                Toast.makeText(this, "Permissions required", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public boolean foregroundServiceRunning(){
+        ActivityManager activityManager  = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service: activityManager.getRunningServices(Integer.MAX_VALUE)){
+            if (ForegroundLocationService.class.getName().equals(service.service.getClassName())){
+                return  true;
+            }
+        }
+        return false;
+    }
+
 }

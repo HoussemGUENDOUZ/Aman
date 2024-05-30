@@ -4,25 +4,27 @@ import java.util.Date;
 
 public class BlackPoint {
 
-    private Date addedAt;
+    private String addedAt;
     private String addedBy;
     private double latitude;
     private double longitude;
     private String type;
 
-    public BlackPoint(Date addedAt, String addedBy, double latitude, double longitude, String type) {
+    public BlackPoint(String addedAt, String addedBy, double latitude, double longitude, String type) {
         this.addedAt = addedAt;
         this.addedBy = addedBy;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
     }
+    public BlackPoint(){
 
-    public Date getAddedAt() {
+    }
+    public String getAddedAt() {
         return addedAt;
     }
 
-    public void setAddedAt(Date addedAt) {
+    public void setAddedAt(String addedAt) {
         this.addedAt = addedAt;
     }
 

@@ -3,49 +3,32 @@ package com.example.aman;
 import java.util.Date;
 
 public class EmergencyCase {
+    long time;
+    double latitude,longitude;
+    String type,description,image,user_id,emergency_unit_id;
 
-    String id ;
-    String position;
-    Date time;
-    String type;
-    String description;
-    String image;
-    String userId;
-    String emergencyServiceUnitId;
-
-    public EmergencyCase(String id, String position, Date time, String type, String description, String image, String userId, String emergencyServiceUnitId) {
-        this.id = id;
-        this.position = position;
-        this.time = time;
-        this.type = type;
-        this.description = description;
-        this.image = image;
-        this.userId = userId;
-        this.emergencyServiceUnitId = emergencyServiceUnitId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public Date getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(long time) {
         this.time = time;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getType() {
@@ -72,21 +55,32 @@ public class EmergencyCase {
         this.image = image;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public String getEmergencyServiceUnitId() {
-        return emergencyServiceUnitId;
+    public String getEmergency_unit_id() {
+        return emergency_unit_id;
     }
 
-    public void setEmergencyServiceUnitId(String emergencyServiceUnitId) {
-        this.emergencyServiceUnitId = emergencyServiceUnitId;
+    public void setEmergency_unit_id(String emergency_unit_id) {
+        this.emergency_unit_id = emergency_unit_id;
     }
+    public EmergencyCase() {
 
-
+    }
+    public EmergencyCase(double latitude, double longitude, long time, String type, String description, String image, String user_id, String emergency_unit_id) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.time = time;
+        this.type = type;
+        this.description = description;
+        this.image = image;
+        this.user_id = user_id;
+        this.emergency_unit_id = emergency_unit_id;
+    }
 }

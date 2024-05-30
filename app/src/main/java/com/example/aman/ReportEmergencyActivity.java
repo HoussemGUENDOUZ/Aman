@@ -159,7 +159,7 @@ public class ReportEmergencyActivity extends AppCompatActivity {
                         map.put("time",System.currentTimeMillis());
                         map.put("user_id",currentUserKey);
                         map.put("emergency_unit_id",nearestUnit);
-                        FirebaseDatabase.getInstance().getReference().child("emeregencyCases").push().setValue(map);
+                        FirebaseDatabase.getInstance().getReference().child("emergencyCases").push().setValue(map);
                         loadingDialog.dismissDialog();
                         AlertDialog.Builder builder = new AlertDialog.Builder(ReportEmergencyActivity.this);
                         builder.setTitle("envoyé avec succés");

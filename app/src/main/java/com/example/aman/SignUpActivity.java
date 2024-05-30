@@ -125,28 +125,26 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
-
                                     // Send verification email
-                                    user.sendEmailVerification()
+                                    /*user.sendEmailVerification()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        dialog.setMessage("veuillez vérifier votre email");
-                                                        Map<String,Object> map =new HashMap<>();
-                                                        map.put("phone_number",phone_number);
-                                                        map.put("email",email);
-                                                        map.put("role","client");
-                                                        //map.put("user_id",currentUser.getUid());
-                                                        FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
-                                                        dialog.dismissDialog();
-                                                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                                                        //Toast.makeText(SignUpActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(SignUpActivity.this, "email sent to user", Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         Toast.makeText(SignUpActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
-                                            });
+                                            });*/
+                                    dialog.setMessage("veuillez vérifier votre email");
+                                    Map<String,Object> map =new HashMap<>();
+                                    map.put("phone_number",phone_number);
+                                    map.put("email",email);
+                                    map.put("role","client");
+                                    FirebaseDatabase.getInstance().getReference().child("users").push().setValue(map);
+                                    dialog.dismissDialog();
+                                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                                     Toast.makeText(SignUpActivity.this, "Authentication succeeded.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {

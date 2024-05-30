@@ -61,8 +61,12 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                 startActivity(intent);
                                 finish();
-                            } else {
+                            } else if (user.getRole().equals("service provider")) {
                                 Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else if (user.getRole().equals("emergency unit agent")) {
+                                Intent intent = new Intent(getApplicationContext(), HomeEuaActivity.class);
                                 startActivity(intent);
                                 finish();
                             }

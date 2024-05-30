@@ -86,11 +86,18 @@ public class LoginActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                 startActivity(intent);
                                                 finish();
-                                            }else {
+                                            } else if (user.getRole().equals("service provider")) {
                                                 Toast.makeText(LoginActivity.this, "Authentication succeeded.",
                                                         Toast.LENGTH_SHORT).show();
                                                 dialog.dismissDialog();
                                                 Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else if (user.getRole().equals("emergency unit agent")) {
+                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                dialog.dismissDialog();
+                                                Intent intent = new Intent(getApplicationContext(), HomeEuaActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             }

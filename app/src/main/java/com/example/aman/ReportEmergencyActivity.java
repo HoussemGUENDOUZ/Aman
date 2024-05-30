@@ -2,6 +2,7 @@ package com.example.aman;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -51,12 +53,15 @@ public class ReportEmergencyActivity extends AppCompatActivity {
     double latitude,longitude;
     FirebaseAuth mAuth;
     FirebaseUser user;
+    User User1;
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_report_emergency);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        loadingDialog = new LoadingDialog(ReportEmergencyActivity.this,"veuillez patienter...",false);
         imageView = findViewById(R.id.profile_imgRE);
         imageView.setOnClickListener(this::goToProfile);
         // Get the LinearLayout for the "case" section
@@ -109,6 +114,7 @@ public class ReportEmergencyActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                         currentUserKey = dataSnapshot.getKey();
+                        User1 = dataSnapshot.getValue(User.class);
                     }
                 }
             }
@@ -117,6 +123,7 @@ public class ReportEmergencyActivity extends AppCompatActivity {
         });
         signaler.setOnClickListener(v -> {
             if (lastSelectedUnit != null && lastSelectedCase != null) {
+                loadingDialog.startLoadingDialog();
                 getLastLocation();
                 // Get the tags of the last selected ImageViews
                 String selectedUnit = (String) lastSelectedUnit.getTag();
@@ -152,8 +159,23 @@ public class ReportEmergencyActivity extends AppCompatActivity {
                         map.put("time",System.currentTimeMillis());
                         map.put("user_id",currentUserKey);
                         map.put("emergency_unit_id",nearestUnit);
-                        FirebaseDatabase.getInstance().getReference().child("emeregencyCases").push().setValue(map);
-                        Toast.makeText(ReportEmergencyActivity.this,"the nearest unit is : " + nearestUnit,Toast.LENGTH_SHORT).show();
+                        FirebaseDatabase.getInstance().getReference().child("emergencyCases").push().setValue(map);
+                        loadingDialog.dismissDialog();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ReportEmergencyActivity.this);
+                        builder.setTitle("envoyé avec succés");
+                        builder.setMessage("Votre déclaration a  été envoyé au service d'urgence le plus proche de chez vous");
+                        builder.setPositiveButton("OK", (dialog, which) -> {
+                            if (User1.getRole().equals("client")){
+                                startActivity(new Intent(ReportEmergencyActivity.this, HomeActivity.class));
+                                finish();
+                            } else if (User1.getRole().equals("service provider")) {
+                                startActivity(new Intent(ReportEmergencyActivity.this, HomeSpActivity.class));
+                                finish();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        //Toast.makeText(ReportEmergencyActivity.this,"the nearest unit is : " + nearestUnit,Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
@@ -257,10 +279,11 @@ public class ReportEmergencyActivity extends AppCompatActivity {
                     List<Address> addresses;
                     try {
                         addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                        assert addresses != null;
                         latitude = addresses.get(0).getLatitude();
                         longitude = addresses.get(0).getLongitude();
-                        Toast.makeText(ReportEmergencyActivity.this,Double.toString(latitude),Toast.LENGTH_LONG).show();
-                        Toast.makeText(ReportEmergencyActivity.this,Double.toString(longitude),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ReportEmergencyActivity.this,Double.toString(latitude),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ReportEmergencyActivity.this,Double.toString(longitude),Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -286,5 +309,4 @@ public class ReportEmergencyActivity extends AppCompatActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
 }

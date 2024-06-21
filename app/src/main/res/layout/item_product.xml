@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_button"
+    android:layout_margin="20dp"
+
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productImage"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productNameTV"
+        android:text="name of product"
+        android:textSize="30dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productDescriptionTV"
+        android:layout_below="@+id/productNameTV"
+        android:text="description of product"
+        android:textSize="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productDetailTV"
+        android:layout_below="@+id/productDescriptionTV"
+        android:text="detail of product"
+        android:textSize="30dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailBTN"
+        android:text="more detail"
+        android:layout_alignParentRight="true"
+
+        android:layout_below="@+id/productDetailTV"
+        android:layout_margin="20dp"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:id="@+id/detailRL"
+    android:background="@color/redE"
+    android:layout_below="@+id/detailBTN"
+    android:visibility="gone"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wiiiiiiiw"
+        android:textSize="20dp"
+        android:id="@+id/w"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More detaille"
+        android:layout_below="@+id/w"/>
+</RelativeLayout>
+</RelativeLayout>

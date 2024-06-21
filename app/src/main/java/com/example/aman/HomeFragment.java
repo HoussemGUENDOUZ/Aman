@@ -69,8 +69,12 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView =  view.findViewById(R.id.lv1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         List<ServicesAvailable> items = new ArrayList<>();
-        items.add(new ServicesAvailable(R.drawable.mecanicien_img, "Mecanicien"));
+        items.add(new ServicesAvailable(R.drawable.mecanicien_img, "Mécanicien"));
         items.add(new ServicesAvailable(R.drawable.electericien_img, "Electricien"));
+        items.add(new ServicesAvailable(R.drawable.depanneur_img, "Dépanneur"));
+        items.add(new ServicesAvailable(R.drawable.lavage_de_voiture, "Lavage automobile"));
+        items.add(new ServicesAvailable(R.drawable.scanner_auto, "Scanner automobile"));
+
         //items.add(new ServicesAvailable(R.drawable.depanneur_img, "Depanneur"));
         //items.add(new ServicesAvailable(R.drawable.hotel_img, "Hotel"));
         ServiceAvailableAdapter adapter = new ServiceAvailableAdapter(getContext(), R.layout.item_service_availabale, items, service -> {

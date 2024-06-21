@@ -5,11 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import static androidx.core.location.LocationManagerCompat.isLocationEnabled;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.provider.Settings;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,11 +28,17 @@ import com.example.aman.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
+    private static final int LOCATION_REQUEST_CODE = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        if (!isLocationEnabled()) {
+            promptForLocation();
+        } else {
+            checkLocationPermission();
+        }
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
         binding.navigationbar.setOnItemSelectedListener(item -> {
@@ -70,7 +86,7 @@ if (!foregroundServiceRunning()){
         fragmentTransaction.replace(R.id.fragmentsFL,fragment);
         fragmentTransaction.commit();
     }
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -85,7 +101,7 @@ if (!foregroundServiceRunning()){
                 Toast.makeText(this, "Permissions required", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 
     public boolean foregroundServiceRunning(){
         ActivityManager activityManager  = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -97,4 +113,56 @@ if (!foregroundServiceRunning()){
         return false;
     }
 
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private void promptForLocation() {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+    }
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (!isLocationEnabled()) {
+                    promptForLocation();
+                }
+            } else {
+                finish(); // Close app if permission is not granted
+            }
+        }
+        Toast.makeText(this,"requestCode",Toast.LENGTH_SHORT).show();
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // Permissions granted, start your service
+                startForegroundService(new Intent(this, ForegroundLocationService.class));
+            } else {
+                // Permissions denied, show a message to the user
+                Toast.makeText(this, "Permissions required", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isLocationEnabled()) {
+            promptForLocation();
+        }
+    }
 }

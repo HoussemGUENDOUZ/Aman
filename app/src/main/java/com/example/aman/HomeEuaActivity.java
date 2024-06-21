@@ -55,7 +55,7 @@ public class HomeEuaActivity extends AppCompatActivity {
         initNotificationChannel();
         fetchEmergencyCases();
     }
-    private void sendNotification() {
+    /*private void sendNotification() {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);  // Change MainActivity to your activity that should be opened
@@ -71,7 +71,7 @@ public class HomeEuaActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
-    }
+    }*/
 
     private void initNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -100,7 +100,7 @@ public class HomeEuaActivity extends AppCompatActivity {
                                     if (snapshot.exists()) {
                                         for (DataSnapshot unitSnapshot : snapshot.getChildren()) {
                                             unitKey = unitSnapshot.getKey();
-                                            databaseReference.child("emergencyCases").addValueEventListener(new ValueEventListener() {
+                                            databaseReference.child("emergencyCases").orderByChild("emergency_unit_id").equalTo(unitKey).addValueEventListener(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     emergencyCases.clear();
@@ -111,7 +111,7 @@ public class HomeEuaActivity extends AppCompatActivity {
                                                             emergencyCases.add(emergencyCase);
                                                         }
                                                     }
-                                                    sendNotification();
+                                                    //sendNotification();
                                                     adapter = new EmergencyCaseAdapter(getApplicationContext(),emergencyCases);
                                                     casesRV.setAdapter(adapter);
                                                     //adapter.notifyDataSetChanged();

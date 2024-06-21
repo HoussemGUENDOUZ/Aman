@@ -1,17 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/whiteBk">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:id="@+id/personal_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Profile"
+        android:textColor="@color/black"
+        android:textSize="18dp"
         android:textStyle="bold"
-        android:textSize="30dp"
-        android:text="Profile fragment" />
-
-</FrameLayout>
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/back"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/profile_img"
+        android:layout_below="@+id/personal_information"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/profile_img"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/personal_name"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/profile_img"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/location"
+            android:text="Constantine"
+            android:textColor="@color/grisBold"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/personal_name"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/iv_line"
+        android:id="@+id/l1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/information_personnel"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Informations personnelles"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            android:onClick="goToPersonalInformation"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Fournisseur de services favoris"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Découvrer plus"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Historique"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/l1"
+        android:layout_marginTop="10dp"
+        android:background="@color/black"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/l1"
+        android:id="@+id/l2">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Inviter des amis"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Aide"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/settings_icon"
+            android:drawableEnd="@drawable/forward_icon"
+            android:text="Se déconnecter"
+            android:textSize="18dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            />
+    </LinearLayout>
+</RelativeLayout>

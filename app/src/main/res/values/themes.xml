@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Aman" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/whiteBk</item>
+        <item name="colorPrimary">#F21905</item>
         <item name="colorPrimaryVariant">@color/gris</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

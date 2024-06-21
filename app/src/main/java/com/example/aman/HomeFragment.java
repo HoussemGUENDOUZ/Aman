@@ -113,6 +113,22 @@ public class HomeFragment extends Fragment {
 //        }
 
 
+RecyclerView recyclerView1 = view.findViewById(R.id.adsRV);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+       ArrayList<String> dataSource;
+       AdsAdapter adsAdapter;
+
+       dataSource= new ArrayList<>();
+        dataSource.add("first ads");
+        dataSource.add("second ads");
+        dataSource.add("third ads");
+
+
+
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        adsAdapter= new AdsAdapter(dataSource);
+        recyclerView1.setLayoutManager(linearLayoutManager);
+        recyclerView1.setAdapter(adsAdapter);
 
         return view;
     }

@@ -79,10 +79,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--        <activity android:name=".AlertActivity"-->
+<!--            android:theme="@style/Theme.AppCompat.Dialog"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:showOnLockScreen="true"-->
+<!--            android:turnScreenOn="true"-->
+<!--            android:exported="true"-->
+<!--            android:taskAffinity=""-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:clearTaskOnLaunch="true">-->
+
+<!--            <intent-filter>-->
+<!--                <action android:name="andoir.intent.action.MAIN"/>-->
+<!--                <category  android:name="andoir.intent.action.DEFAULT"/>-->
+<!--        </intent-filter>-->
+<!--        </activity>-->
+        <activity android:name=".AlertActivity"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity="" />
         <service
             android:name=".ForegroundLocationService"
             android:enabled="true"
-            android:exported="false"
+            android:exported="true"
             android:foregroundServiceType="location"
             tools:ignore="ForegroundServicePermission" />
     </application>

@@ -36,7 +36,7 @@ import java.util.List;
 public class ForegroundLocationService extends Service {
 
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
-    private static final long LOCATION_UPDATE_INTERVAL = 30000; // 3 minutes in milliseconds
+    private static final long LOCATION_UPDATE_INTERVAL = 30000; // 30 seconds
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
@@ -58,11 +58,10 @@ public class ForegroundLocationService extends Service {
                 .setSmallIcon(R.drawable.depanneur_img)
                 .build();
         startForeground(1, notification);
-        Log.e("Black","before calback");
+
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                Log.e("Black", "on location callback");
                 if (locationResult == null) {
                     return;
                 }
@@ -71,25 +70,11 @@ public class ForegroundLocationService extends Service {
                     Toast.makeText(ForegroundLocationService.this, "Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
 
                     checkForBlackPoint(location);
-                    Log.e("Black", "checkForBlackPoint");
                 }
             }
         };
 
-        // Start location updates after initializing the callback
         startLocationUpdates();
-
-        new Thread(() -> {
-            while (true) {
-                Log.e("service", "service is running ...");
-
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
     private void fetchBlackPointsFromFirebase() {
@@ -104,7 +89,6 @@ public class ForegroundLocationService extends Service {
                     }
                 }
                 Toast.makeText(ForegroundLocationService.this, "BlackPoints updated", Toast.LENGTH_SHORT).show();
-                // Get the last known location to check immediately after updating black points
                 getLastKnownLocation();
             }
 
@@ -130,9 +114,8 @@ public class ForegroundLocationService extends Service {
 
     private void checkForBlackPoint(Location location) {
         for (BlackPoint blackPoint : blackPoints) {
-            Log.e("bp", blackPoint.toString());
-            if (Math.abs(blackPoint.getLatitude() - location.getLatitude()) < 0.001 &&
-                    Math.abs(blackPoint.getLongitude() - location.getLongitude()) < 0.001) {
+            if (Math.abs(blackPoint.getLatitude() - location.getLatitude()) < 0.01 &&
+                    Math.abs(blackPoint.getLongitude() - location.getLongitude()) < 0.01) {
                 Toast.makeText(this, "blackPoint place", Toast.LENGTH_SHORT).show();
                 sendAlert();
                 break;
@@ -141,11 +124,12 @@ public class ForegroundLocationService extends Service {
     }
 
     private void sendAlert() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, AlertActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE); // Default notification sound
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.civile_protection)
@@ -158,6 +142,8 @@ public class ForegroundLocationService extends Service {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(2, builder.build());
+
+        startActivity(intent);
     }
 
     @Override

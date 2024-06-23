@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.volley)
     implementation(libs.picasso)
     implementation(libs.circleimageview)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

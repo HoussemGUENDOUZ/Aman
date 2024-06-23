@@ -7,6 +7,7 @@ public class EmergencyCase {
     double latitude,longitude;
     String type,description,image,user_id,emergency_unit_id;
 
+
     public long getTime() {
         return time;
     }

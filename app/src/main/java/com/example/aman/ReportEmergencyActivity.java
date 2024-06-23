@@ -205,6 +205,7 @@ public class ReportEmergencyActivity extends AppCompatActivity {
                         map.put("user_id",currentUserKey);
                         map.put("emergency_unit_id",nearestUnit);
                         map.put("image",pathComplet);
+                        Log.d("imm",pathComplet);
                         FirebaseDatabase.getInstance().getReference().child("emergencyCases").push().setValue(map);
                         loadingDialog.dismissDialog();
                         AlertDialog.Builder builder = new AlertDialog.Builder(ReportEmergencyActivity.this);

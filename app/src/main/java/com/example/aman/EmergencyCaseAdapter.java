@@ -92,10 +92,10 @@ String pathTransformed;
                         for (StorageReference item : task.getResult().getItems()) {
                             String path = item.getPath(); // Get full path of the image
                             // Check if the image path starts with "JPEG_123456_12344"
-                            if (path.startsWith(pathTransformed)) {
-                                // Add the image path to the list
-                                imagePaths.add(path);
-                            }
+//                            if (path.startsWith(pathTransformed)) {
+//                                // Add the image path to the list
+//                                imagePaths.add(path);
+//                            }
                         }
                         // Notify RecyclerView adapter of changes if needed
                         notifyDataSetChanged();

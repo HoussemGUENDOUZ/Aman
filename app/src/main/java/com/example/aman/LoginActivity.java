@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -79,27 +81,24 @@ public class LoginActivity extends AppCompatActivity {
                                         User user = datasnapshot.getValue(User.class);
                                         assert user != null;
                                         if (user.getEmail().equals(email)){
-                                            if (user.getRole().equals("client")){
-                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                                        Toast.LENGTH_SHORT).show();
+                                            if (user.getRole().equals("client") || user.getRole().equals("storekeeper")){
                                                 dialog.dismissDialog();
                                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             } else if (user.getRole().equals("service provider")) {
-                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                                        Toast.LENGTH_SHORT).show();
                                                 dialog.dismissDialog();
                                                 Intent intent = new Intent(getApplicationContext(), HomeSpActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                             } else if (user.getRole().equals("emergency unit agent")) {
-                                                Toast.makeText(LoginActivity.this, "Authentication succeeded.",
-                                                        Toast.LENGTH_SHORT).show();
                                                 dialog.dismissDialog();
                                                 Intent intent = new Intent(getApplicationContext(), HomeEuaActivity.class);
                                                 startActivity(intent);
                                                 finish();
+                                            }else {
+                                                dialog.dismissDialog();
+                                                showSnackbar("impossible de se connecter");
                                             }
                                         }
                                     }
@@ -112,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             dialog.dismissDialog();
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            //snackbar here
+                            showSnackbar("Informations erronées ou le compte n'existe pas");
                         }
                     });
         });
@@ -162,11 +161,11 @@ public class LoginActivity extends AppCompatActivity {
             if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && isValidEmail(email)){
                 //fields are not empty
                 loginbtn.setTextColor(Color.parseColor("#ffffff"));
-                loginbtn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu));
+                loginbtn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redE));
             }else {
                 //both fields or one of them is empty
                 loginbtn.setTextColor(Color.parseColor("#99ffffff"));
-                loginbtn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu2));
+                loginbtn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redE2));
             }
         }
         @Override
@@ -177,5 +176,16 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isValidEmail(String email) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         return email.matches(emailPattern);
+    }
+    private void showSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Undo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.setActionTextColor(Color.WHITE);
+        snackbar.show();
     }
 }

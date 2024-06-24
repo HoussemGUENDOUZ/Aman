@@ -4,8 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/whiteBk"
-    android:layout_marginTop="7dp">
-    <LinearLayout
+    android:layout_marginTop="7dp"
+    android:layout_gravity="center"
+    android:gravity="center">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/app_logo"
+        android:layout_marginHorizontal="60dp"
+        />
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -26,30 +34,32 @@
             android:textColor="@color/black"
             android:layout_gravity="center"
             />
-    </LinearLayout>
-    <TextView
+    </LinearLayout>-->
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bonjour à nouveau, vous nous avez manqué"
         android:layout_marginLeft="40dp"
         android:textColor="@color/grisBold"
         android:layout_marginTop="20dp"
-        />
+        />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
         android:textColor="@color/black"
-        android:textSize="24dp"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
+        android:layout_gravity="left"
         />
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="20dp"
         android:paddingHorizontal="10dp"
         android:inputType="textEmailAddress"
         android:background="@drawable/edit_txt"
@@ -59,16 +69,18 @@
         android:layout_height="wrap_content"
         android:text="Mot de passe"
         android:textColor="@color/black"
-        android:textSize="24dp"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
+        android:layout_gravity="left"
         />
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="20dp"
         android:paddingHorizontal="10dp"
         android:inputType="textPassword"
         android:background="@drawable/edit_txt"
@@ -80,7 +92,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="20dp">
-        <EditText
+        <!--<EditText
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/edit_txt"
@@ -92,14 +104,14 @@
             android:textSize="16dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/grisBold"
-            />
+            />-->
         <TextView
             android:id="@+id/forgotten_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="mot de passe oublie ?"
             android:textSize="16dp"
-            android:textColor="@color/bleu"
+            android:textColor="@color/redE"
             android:layout_gravity="right|center"
             android:layout_weight="1"
             android:gravity="end"
@@ -111,13 +123,13 @@
         android:layout_height="60dp"
         android:text="Se connecter"
         android:background="@drawable/login_button"
-        android:backgroundTint="#991766FF"
+        android:backgroundTint="#99FF1111"
         android:textColor="#99ffffff"
         android:textStyle="bold"
         android:textSize="24dp"
         android:layout_margin="20dp"
         />
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -147,8 +159,8 @@
             android:gravity="center"
             android:layout_marginTop="3dp"
             />
-    </LinearLayout>
-    <LinearLayout
+    </LinearLayout>-->
+    <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -164,7 +176,7 @@
             android:src="@drawable/facebook_icon"
             android:layout_marginLeft="50dp"
             />
-    </LinearLayout>
+    </LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -185,7 +197,7 @@
             android:layout_height="wrap_content"
             android:text="S'inscrire "
             android:textSize="16dp"
-            android:textColor="@color/bleu"
+            android:textColor="@color/redE"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
             />

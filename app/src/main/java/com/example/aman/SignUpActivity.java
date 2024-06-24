@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText emailET,phone_numberET,passwordET,confirm_passwordET;
+    EditText nameET,emailET,phone_numberET,passwordET,confirm_passwordET;
     Button signup_btn;
     boolean passwordVisible,confirmpasswordVisible;
     private FirebaseAuth mAuth;
@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
+        nameET = findViewById(R.id.name);
         emailET = findViewById(R.id.email);
         passwordET = findViewById(R.id.password);
         confirm_passwordET = findViewById(R.id.confirm_password);
@@ -64,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
         //initialize disabled button
         signup_btn.setEnabled(false);
         //disable and enable login button
+        nameET.addTextChangedListener(signuptextwatcher);
         emailET.addTextChangedListener(signuptextwatcher);
         passwordET.addTextChangedListener(signuptextwatcher);
         phone_numberET.addTextChangedListener(signuptextwatcher);
@@ -116,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog = new LoadingDialog(SignUpActivity.this,"veuillez patienter...",false);
                 dialog.startLoadingDialog();
+                String name = nameET.getText().toString();
                 String email = emailET.getText().toString();
                 String phone_number = phone_numberET.getText().toString();
                 String password = passwordET.getText().toString();
@@ -137,8 +140,9 @@ public class SignUpActivity extends AppCompatActivity {
                                                     }
                                                 }
                                             });*/
-                                    dialog.setMessage("veuillez vérifier votre email");
+                                    //dialog.setMessage("veuillez vérifier votre email");
                                     Map<String,Object> map =new HashMap<>();
+                                    map.put("name",name);
                                     map.put("phone_number",phone_number);
                                     map.put("email",email);
                                     map.put("role","client");
@@ -173,19 +177,20 @@ public class SignUpActivity extends AppCompatActivity {
         }
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String name = nameET.getText().toString().trim();
             String email = emailET.getText().toString().trim();
             String password = passwordET.getText().toString().trim();
             String phone_number =phone_numberET.getText().toString().trim();
             String confirm_password = confirm_passwordET.getText().toString().trim();
-            signup_btn.setEnabled(!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && phone_number.length()==10 && password.equals(confirm_password) && isValidEmail(email));
-            if (!email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && password.equals(confirm_password) && phone_number.length()==10 && isValidEmail(email)){
+            signup_btn.setEnabled(!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && phone_number.length()==10 && password.equals(confirm_password) && isValidEmail(email));
+            if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && password.length()>6 && !confirm_password.isEmpty() && !phone_number.isEmpty() && password.equals(confirm_password) && phone_number.length()==10 && isValidEmail(email)){
                 //fields are not empty
                 signup_btn.setTextColor(Color.parseColor("#ffffff"));
-                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu));
+                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redE));
             }else {
                 //both fields or one of them is empty
                 signup_btn.setTextColor(Color.parseColor("#99ffffff"));
-                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.bleu2));
+                signup_btn.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.redE2));
             }
         }
         @Override

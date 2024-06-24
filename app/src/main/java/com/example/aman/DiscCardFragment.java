@@ -55,6 +55,9 @@ public class DiscCardFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser user;
     String userKey;
+    User user1;
+    TextView name;
+
     private  final static int REQUEST_CODE=100;
     TextView address;
 
@@ -97,17 +100,25 @@ public class DiscCardFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.profile_img);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext());
         address = view.findViewById(R.id.address);
+        name = view.findViewById(R.id.name);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        getLastLocation();
-        imageView.setOnClickListener(new View.OnClickListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").orderByChild("email").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                goToProfile(v);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        user1 = dataSnapshot.getValue(User.class);
+                    }
+                }
+                if (user1 != null) {
+                    name.setText(user1.name);
+                }
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
-
-
+        getLastLocation();
 
 //        address.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -117,10 +128,6 @@ public class DiscCardFragment extends Fragment {
 //        });
 
         return view;
-    }
-    public void goToProfile(View view) {
-        Intent intent = new Intent(requireContext(), RoutingActivity.class);
-        startActivity(intent);
     }
 
     private void getLastLocation() {

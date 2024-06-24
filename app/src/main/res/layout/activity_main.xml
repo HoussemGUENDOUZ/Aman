@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:text="Bienvenue à AMAN"
+        android:text="Bienvenue à Sauviwni"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:textStyle="bold"
@@ -40,7 +40,7 @@
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:text="Se connecter"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingStart="16dp"
@@ -51,13 +51,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:onClick="goToLogin"
+        android:backgroundTint="#F21905"
         />
     <Button
         android:id="@+id/inscrire"
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:text="S'inscrire"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingStart="16dp"
@@ -68,5 +69,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:onClick="goToSignUp"
+        android:backgroundTint="#F21905"
         />
 </LinearLayout>

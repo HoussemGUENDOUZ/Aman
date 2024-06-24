@@ -1,26 +1,33 @@
 package com.example.aman;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ProfileFragment extends Fragment {
+    FirebaseAuth mAuth;
+    FirebaseUser user;
+    User user1;
+    TextView logout, name;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -28,15 +35,6 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -59,6 +57,48 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        logout = view.findViewById(R.id.logout);
+        name = view.findViewById(R.id.name);
+        FirebaseDatabase.getInstance().getReference().child("users").orderByChild("email").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        user1 = dataSnapshot.getValue(User.class);
+                    }
+                }
+                if (user1 != null) {
+                    name.setText(user1.name);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadingDialog loadingDialog = new LoadingDialog(getContext(),"déconnexion...",false);
+                loadingDialog.startLoadingDialog();
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Perform the logout operation
+                        FirebaseAuth.getInstance().signOut();
+                        // Dismiss the loading dialog
+                        loadingDialog.dismissDialog();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                        // Finish the hosting activity
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                        }
+                    }
+                }, 1000); // 2 seconds delay
+            }
+        });
+        return view;
     }
 }

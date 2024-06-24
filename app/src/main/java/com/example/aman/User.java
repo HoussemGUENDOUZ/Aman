@@ -5,10 +5,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class User {
 
-    String email;
-    String phoneNumber;
-    String role;
-    String position;
+    String name,email,phoneNumber,role,position;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPosition() {
         return position;
@@ -17,9 +22,6 @@ public class User {
     public void setPosition(String position) {
         this.position = position;
     }
-
-
-
 
     public String getEmail() {
         return email;
@@ -44,6 +46,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
 
 }

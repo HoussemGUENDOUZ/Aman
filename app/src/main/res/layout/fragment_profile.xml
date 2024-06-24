@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/whiteBk">
+    android:background="@color/whiteBk"
+    android:layout_marginTop="5dp">
     <TextView
         android:id="@+id/personal_information"
         android:layout_width="wrap_content"
@@ -41,8 +42,10 @@
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/profile_img"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:gravity="center">
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Name"
@@ -50,6 +53,7 @@
             android:textStyle="bold"
             />
         <TextView
+            android:id="@+id/podition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/location"
@@ -158,6 +162,7 @@
             android:layout_marginBottom="15dp"
             />
         <TextView
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/settings_icon"

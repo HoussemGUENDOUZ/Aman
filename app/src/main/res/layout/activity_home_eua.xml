@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="7dp"
     tools:context=".HomeEuaActivity">
     <TextView
         android:layout_width="wrap_content"

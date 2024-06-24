@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/whiteBk"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="7dp">
     <TextView
         android:id="@+id/personal_information"
         android:layout_width="wrap_content"

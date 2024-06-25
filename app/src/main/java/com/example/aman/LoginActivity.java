@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                                         User user = datasnapshot.getValue(User.class);
                                         assert user != null;
                                         if (user.getEmail().equals(email)){
-                                            if (user.getRole().equals("client") || user.getRole().equals("storekeeper")){
+                                            if (user.getRole().equals("client")){
                                                 dialog.dismissDialog();
                                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                                 startActivity(intent);
@@ -96,7 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplicationContext(), HomeEuaActivity.class);
                                                 startActivity(intent);
                                                 finish();
-                                            }else {
+                                            } else if (user.getRole().equals("storekeeper")) {
+                                                dialog.dismissDialog();
+                                                Intent intent = new Intent(getApplicationContext(), HomeSkActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
                                                 dialog.dismissDialog();
                                                 showSnackbar("impossible de se connecter");
                                             }

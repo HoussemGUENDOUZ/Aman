@@ -7,14 +7,14 @@
 
     >
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:id="@+id/productImage"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/productNameTV"
-        android:text="name of product"
+
         android:textSize="30dp"
         />
     <TextView
@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/productDescriptionTV"
         android:layout_below="@+id/productNameTV"
-        android:text="description of product"
+
         android:textSize="30dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/productDetailTV"
         android:layout_below="@+id/productDescriptionTV"
-        android:text="detail of product"
+
         android:textSize="30dp"/>
 
     <Button
@@ -41,25 +41,72 @@
 
         android:layout_below="@+id/productDetailTV"
         android:layout_margin="20dp"/>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:id="@+id/detailRL"
-    android:background="@color/redE"
-    android:layout_below="@+id/detailBTN"
-    android:visibility="gone"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="wiiiiiiiw"
-        android:textSize="20dp"
-        android:id="@+id/w"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="More detaille"
-        android:layout_below="@+id/w"/>
-</RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detailRL"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_below="@+id/detailBTN"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/M_ProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Produit : "
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/M_ProductDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/M_ProductName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="More detaille"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/M_ProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/M_ProductDescription"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="More detaille"
+            android:textSize="18dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/M_ProductDetails"
+            android:layout_margin="30dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="0782247813"
+                android:textSize="24dp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/call_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="@color/bleu2"
+                android:gravity="right"
+                android:src="@drawable/baseline_call_24" />
+
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

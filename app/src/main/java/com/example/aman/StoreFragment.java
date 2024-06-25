@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class StoreFragment extends Fragment {
@@ -30,11 +33,15 @@ public class StoreFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private DatabaseReference products;
+    private DatabaseReference products, usersRef;
     private ProductAdapter productAdapter;
     private List<Product> productList = new ArrayList<>();
+    private SearchView searchView;
+    private List<Product> filteredProductList = new ArrayList<>();
+    private Map<String, String> userNames = new HashMap<>();
+
     public StoreFragment() {
-        // Required empty public constructor
+
     }
     public static StoreFragment newInstance(String param1, String param2) {
         StoreFragment fragment = new StoreFragment();
@@ -55,31 +62,75 @@ public class StoreFragment extends Fragment {
         }
 
         products = FirebaseDatabase.getInstance().getReference("products");
-
+        usersRef = FirebaseDatabase.getInstance().getReference("users");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view= inflater.inflate(R.layout.fragment_store, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        productAdapter = new ProductAdapter(getContext(), productList);
+        searchView = view.findViewById(R.id.search_view);
+        productAdapter = new ProductAdapter(getContext(), productList,userNames);
         recyclerView.setAdapter(productAdapter);
-        // Example: Add a new store item//String name, String description, String details, String image
+
       //  addStoreItem(new Product("1","Bougies", "Almeng", "Item Details","https://facebook"));
         //addStoreItem(new Product("1","Coffre", "Toyota", "Item Details","https://facebook"));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterProducts(query);
+                return false;
+            }
 
-        // Example: Retrieve and display store items
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterProducts(newText);
+                return false;
+            }
+        });
+        // retrieve and display store items
         retrieveStoreItems();
         return view;
 
 
 
     }
+    private void filterProducts(String query) {
+        filteredProductList.clear();
+        if (query.isEmpty()) {
+            filteredProductList.addAll(productList);
+        } else {
+            for (Product product : productList) {
+                if (product.getName().toLowerCase().contains(query.toLowerCase()) ||
+                        product.getDescription().toLowerCase().contains(query.toLowerCase()) ||
+                        (userNames.get(product.getStoreKeperID()) != null && userNames.get(product.getStoreKeperID()).toLowerCase().contains(query.toLowerCase()))) {
+                    filteredProductList.add(product);
+                }
+            }
+        }
+        productAdapter.notifyDataSetChanged();
+    }
+    private void retrieveUserInfo(String userId) {
+        usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String userName = dataSnapshot.child("name").getValue(String.class);
+                if (userName != null) {
+                    userNames.put(userId, userName);
+                    productAdapter.notifyDataSetChanged();
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("Firebase Data", "loadUserInfo:onCancelled", databaseError.toException());
+            }
+        });
+    }
     private void addStoreItem(Product product) {
 
         String itemId = products.push().getKey();

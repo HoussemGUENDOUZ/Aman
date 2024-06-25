@@ -7,6 +7,26 @@ public class Product {
     String details;
     String image;
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    String phoneNumber;
+
+    public String getStoreKeperID() {
+        return StoreKeperID;
+    }
+
+    public void setStoreKeperID(String storeKeperID) {
+        StoreKeperID = storeKeperID;
+    }
+
+    String StoreKeperID;
+
     public Product() {
 
     }
@@ -19,7 +39,7 @@ public class Product {
         this.id = id;
     }
 
-    public Product(String id, String name, String description, String details, String image) {
+    public Product(String id, String name, String description, String details, String image, String storeKeperID,String phoneNumber) {
         this.id = id;
         this.name = name;
         this.description = description;
